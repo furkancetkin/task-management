@@ -53,7 +53,7 @@ function FormModal({
         type: "task",
       });
     }
-  }, [formModal]);
+  }, [formModal.type]);
 
   return (
     <>
