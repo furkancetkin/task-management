@@ -1,13 +1,301 @@
+*,
+html,
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  padding: 4% 6%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.navbar {
+  padding: 0 6%;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #78a8c6;
+  box-shadow: 6px 6px #a6cadf;
+  border-radius: 8px;
+}
+
+button {
+  background-color: beige;
+  border: 1px solid #717171;
+  color: #333;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #ffb9b3;
+}
+
+.status {
+  border: 2px solid #78a8c6;
+  box-shadow: 6px 6px #a6cadf;
+  border-radius: 10px;
+  padding: 16px;
+  height: fit-content;
+  font-size: 20px;
+}
+
+.status .content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.status .content .splitLine {
+  width: 2px;
+  background-color: #78a8c6;
+  height: 20px;
+  margin: 0 auto;
+}
+
+.board {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.column {
+  flex: 1;
+  width: 100%;
+  min-height: 550px;
+  background-color: #dbf2f9;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 6px 6px #a6cadf;
+  border: 2px solid #78a8c6;
+}
+
+.column .columnTitle {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 3px solid #fff;
+}
+
+.column .taskList {
+  padding: 0 12px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.column .taskList::-webkit-scrollbar {
+  display: none;
+}
+
+.column .taskList.draggingOver {
+  background-color: #eff7f9;
+}
+
+.task {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 12px 0;
+  padding: 8px 12px;
+  box-shadow: 5px 5px 0px #bfd6e4;
+  width: 100%;
+}
+
+.task .content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.task .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.task .title {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badges .badge {
+  font-size: 13px;
+  background-color: beige;
+  padding: 4px 6px;
+  border-radius: 6px;
+  color: #333;
+  border: 1px solid #717171;
+}
+
+.badges .badge.bugType {
+  background-color: #e78d83;
+  color: #fff;
+}
+
+.badges .badge.taskType {
+  background-color: #78a8c6;
+  color: #fff;
+}
+
+.task.dragging {
+  background-color: #dbf2f9;
+}
+
+.darkMode {
+  background-color: #151515;
+}
+
+.darkMode .navbar {
+  background-color: #151515;
+  color: #fff;
+  border-bottom: 2px solid slategray;
+  box-shadow: none;
+}
+
+.darkMode .status {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.darkMode .status .splitLine {
+  background-color: slategray;
+}
+
+.darkMode .column {
+  background-color: #2a2a2a;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.darkMode .column .columnTitle {
+  color: #fff;
+  border-bottom: 2px solid transparent;
+}
+
+.darkMode .column .taskList.draggingOver {
+  background-color: #4e4e4e;
+}
+
+.darkMode .task {
+  background-color: #808080;
+  color: #fff;
+  border: 1px solid #151515;
+  box-shadow: none;
+}
+
+.darkMode .task.dragging {
+  background-color: #4b4b4b;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal .modalInner {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  min-width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.modal .modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal .modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modalContent .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal .inputWrapper .inputLabel {
+  min-width: 82px;
+}
+
+.modal .inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal textarea {
+  resize: none;
+  height: 4em;
+}
+
+.modal .inputWrapper .radioWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal input[type=text], .modal textarea {
+  border: 1px solid #717171;
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 100%;
+}
+
+.modal input[type=text]:focus, .modal textarea:focus {
+  outline: 1px solid #78a8c6;
+  border-color: transparent;
 }
