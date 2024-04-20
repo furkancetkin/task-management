@@ -299,3 +299,21 @@ button {
   outline: 1px solid #78a8c6;
   border-color: transparent;
 }
+
+
+@media screen and (max-width: 768px) {
+  .status h3 {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .status .content {
+    flex-direction: column;
+  }
+  .status .content .splitLine {
+    width: 30px;
+    height: 2px;
+  }
+  .board {
+    flex-direction: column;
+  }
+}
