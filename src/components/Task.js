@@ -1,6 +1,10 @@
 import { Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { setDetailModal, setFormModal } from "../stores/modal";
+import { setSelectedTask } from "../stores/task";
 
-function Task({ task, index, setSelectedTask, setFormModal, setDetailModal }) {
+function Task({ task, index }) {
+  const dispatch = useDispatch();
 
   const bgColorChange = (snapshot) => {
     return snapshot.isDragging ? "dragging" : "";
@@ -16,8 +20,8 @@ function Task({ task, index, setSelectedTask, setFormModal, setDetailModal }) {
           isDragging={snapshot.isDragging}
           className={`task ${bgColorChange(snapshot)}`}
           onClick={() => {
-            setSelectedTask(task);
-            setDetailModal(true);
+            dispatch(setSelectedTask(task));
+            dispatch(setDetailModal(true));
           }}
         >
           <div className="content">
@@ -26,19 +30,27 @@ function Task({ task, index, setSelectedTask, setFormModal, setDetailModal }) {
           <div className="bottom">
             <div className="badges">
               <span className="badge">#{task.id}</span>
-              <span className={`badge ${task.type === "bug" ? "bugType" : "taskType"}`}>
+              <span
+                className={`badge ${
+                  task.type === "bug" ? "bugType" : "taskType"
+                }`}
+              >
                 {task.type}
               </span>
             </div>
             <div className="buttons">
-              <button onClick={(e) => {
-                e.stopPropagation();
-                setSelectedTask(task);
-                setFormModal({
-                  isOpen: true,
-                  type: 'edit'
-                });
-              }}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(setSelectedTask(task));
+                  dispatch(
+                    setFormModal({
+                      isOpen: true,
+                      type: "edit",
+                    })
+                  );
+                }}
+              >
                 <i className="fa-solid fa-pencil" />
               </button>
             </div>

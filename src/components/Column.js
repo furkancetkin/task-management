@@ -1,7 +1,9 @@
 import { Droppable } from "react-beautiful-dnd";
 import Task from "./Task";
+import { useSelector } from "react-redux";
 
-function Column({ columnTitle, taskList, id, setFormModal, setDetailModal, setSelectedTask, setTaskList }) {
+function Column({ columnTitle, id }) {
+  const { tasks } = useSelector((state) => state.task);
   return (
     <div className="column">
       <h3 className="columnTitle">{columnTitle}</h3>
@@ -11,10 +13,14 @@ function Column({ columnTitle, taskList, id, setFormModal, setDetailModal, setSe
             ref={provided.innerRef}
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
-            className={`taskList ${snapshot.isDraggingOver ? 'draggingOver' : ''}`}
+            className={`taskList ${
+              snapshot.isDraggingOver ? "draggingOver" : ""
+            }`}
           >
-            {taskList.map((task, index) => (
-                <Task task={task} key={task.id} index={index} setFormModal={setFormModal} setDetailModal={setDetailModal} setSelectedTask={setSelectedTask} setTaskList={setTaskList} taskList={taskList} />
+            {tasks
+              .filter((t) => t.status === id)
+              .map((task, index) => (
+                <Task task={task} key={task.id} index={index} />
               ))}
             {provided.placeholder}
           </div>

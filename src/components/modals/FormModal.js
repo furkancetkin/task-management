@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, editTask } from "../../stores/task";
+import { setFormModal } from "../../stores/modal";
 
-function FormModal({
-  formModal,
-  setFormModal,
-  selectedTask,
-  taskList,
-  setTaskList,
-}) {
+function FormModal() {
+  const { formModal } = useSelector((state) => state.modal);
+  const { selectedTask } = useSelector((state) => state.task);
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -14,26 +15,7 @@ function FormModal({
     type: "task",
   });
 
-  const addTask = () => {
-    setTaskList([
-      { ...form, id: Math.floor(Math.random() * 1000) },
-      ...taskList
-    ]);
-  };
-
-  const editTask = () => {
-    const updatedTaskList = taskList.map((task) => {
-      if (task.id === selectedTask.id) {
-        return { ...task, ...form };
-      }
-      return task;
-    });
-    setTaskList(updatedTaskList);
-  };
-
-  const submit = () => {
-    formModal.type === "create" ? addTask() : editTask();
-    setFormModal({ ...formModal, isOpen: false });
+  const resetForm = () => {
     setForm({
       title: "",
       description: "",
@@ -42,31 +24,45 @@ function FormModal({
     });
   };
 
+  const addTaskF = () => {
+    dispatch(addTask({ ...form, id: Math.floor(Math.random() * 1000).toString() }));
+    resetForm();
+  };
+
+  const editTaskF = () => {
+    dispatch(editTask(form, selectedTask.id));
+  };
+
+  const submit = () => {
+    formModal.type === "create" ? addTaskF() : editTaskF();
+    dispatch(setFormModal({ ...formModal, isOpen: false }));
+    resetForm();
+  };
+
   useEffect(() => {
     if (formModal.type === "edit") {
       setForm(selectedTask);
     } else if (formModal.type === "create") {
-      setForm({
-        title: "",
-        description: "",
-        status: "todo",
-        type: "task",
-      });
+      resetForm();
     }
-  }, [formModal.type]);
+  }, [formModal.isOpen]);
 
   return (
     <>
       {formModal.isOpen && (
         <div
           className="modal"
-          onClick={() => setFormModal({ ...formModal, isOpen: false })}
+          onClick={() =>
+            dispatch(setFormModal({ ...formModal, isOpen: false }))
+          }
         >
           <div className="modalInner" onClick={(e) => e.stopPropagation()}>
             <div className="modalHeader">
               <h3>{formModal.type}</h3>
               <button
-                onClick={() => setFormModal({ ...formModal, isOpen: false })}
+                onClick={() =>
+                  dispatch(setFormModal({ ...formModal, isOpen: false }))
+                }
               >
                 <i className="fa-solid fa-xmark"></i>
               </button>

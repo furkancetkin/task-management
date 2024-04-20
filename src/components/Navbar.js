@@ -1,14 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormModal } from "../stores/modal";
+import { setDarkMode } from "../stores/theme";
+import { setSelectedTask } from "../stores/task";
 
-function Navbar({ darkMode, setDarkMode, setFormModal, setSelectedTask }) {
+function Navbar() {
+  const darkMode = useSelector((state) => state.theme.darkMode);
+  const dispatch = useDispatch();
   const openModal = () => {
-    setSelectedTask({
-      title: "",
-      description: "",
-      status: "todo",
-      type: "task",
-    });
-    setFormModal({ isOpen: true, type: "create" });
+    dispatch(
+      setSelectedTask({
+        title: "",
+        description: "",
+        status: "todo",
+        type: "task",
+      })
+    );
+    dispatch(setFormModal({ isOpen: true, type: "create" }));
   };
 
   return (
@@ -16,11 +24,11 @@ function Navbar({ darkMode, setDarkMode, setFormModal, setSelectedTask }) {
       <button onClick={openModal}>create</button>
       <div>
         {darkMode ? (
-          <button onClick={() => setDarkMode(false)}>
+          <button onClick={() => dispatch(setDarkMode(false))}>
             <i className="fa-solid fa-sun"></i>
           </button>
         ) : (
-          <button onClick={() => setDarkMode(true)}>
+          <button onClick={() => dispatch(setDarkMode(true))}>
             <i className="fa-solid fa-moon"></i>
           </button>
         )}

@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Status({ taskList }) {
+function Status() {
+  const taskList = useSelector((state) => state.task.tasks);
   const calculatestatus = (status) => {
     return taskList.filter((task) => task.status === status).length;
   };
