@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDetailModal } from "../../stores/modal";
 import { deleteTask } from "../../stores/task";
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 
 function DetailModal() {
   const { detailModal } = useSelector((state) => state.modal );
@@ -20,8 +21,8 @@ function DetailModal() {
           <div className="modalInner" onClick={(e) => e.stopPropagation()}>
             <div className="modalHeader">
               <h3>task detail</h3>
-              <button onClick={() => dispatch(setDetailModal(false))}>
-                <i className="fa-solid fa-xmark"></i>
+              <button className="iconBtn" onClick={() => dispatch(setDetailModal(false))}>
+                <CloseIcon />
               </button>
             </div>
             <div className="modalContent">
@@ -39,7 +40,7 @@ function DetailModal() {
                     {selectedTask.type}
                   </span>
                 </div>
-                <button className="deleteButton" onClick={(e) => deleteTaskF(e)}>
+                <button className="iconBtn deleteButton" onClick={(e) => deleteTaskF(e)}>
                   <DeleteIcon />
                 </button>
               </div>

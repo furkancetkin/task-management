@@ -26,11 +26,11 @@ function Navbar() {
       <button onClick={openModal}>create</button>
       <div>
         {darkMode ? (
-          <button onClick={() => dispatch(setDarkMode(false))}>
+          <button className="iconBtn" onClick={() => dispatch(setDarkMode(false))}>
             <Brightness7Icon />
           </button>
         ) : (
-          <button onClick={() => dispatch(setDarkMode(true))}>
+          <button className="iconBtn" onClick={() => dispatch(setDarkMode(true))}>
             <ModeNightIcon />
           </button>
         )}

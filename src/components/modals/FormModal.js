@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, editTask } from "../../stores/task";
 import { setFormModal } from "../../stores/modal";
+import CloseIcon from '@mui/icons-material/Close';
 
 function FormModal() {
   const { formModal } = useSelector((state) => state.modal);
@@ -60,11 +61,12 @@ function FormModal() {
             <div className="modalHeader">
               <h3>{formModal.type}</h3>
               <button
+              className="iconBtn"
                 onClick={() =>
                   dispatch(setFormModal({ ...formModal, isOpen: false }))
                 }
               >
-                <i className="fa-solid fa-xmark"></i>
+                <CloseIcon />
               </button>
             </div>
             <div className="modalContent">

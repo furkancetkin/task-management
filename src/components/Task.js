@@ -42,6 +42,7 @@ function Task({ task, index }) {
             </div>
             <div className="buttons">
               <button
+              className="iconBtn"
                 onClick={(e) => {
                   e.stopPropagation();
                   dispatch(setSelectedTask(task));
