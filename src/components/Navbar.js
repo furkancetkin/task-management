@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFormModal } from "../stores/modal";
 import { setDarkMode } from "../stores/theme";
 import { setSelectedTask } from "../stores/task";
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
 
 function Navbar() {
   const darkMode = useSelector((state) => state.theme.darkMode);
@@ -25,11 +27,11 @@ function Navbar() {
       <div>
         {darkMode ? (
           <button onClick={() => dispatch(setDarkMode(false))}>
-            <i className="fa-solid fa-sun"></i>
+            <Brightness7Icon />
           </button>
         ) : (
           <button onClick={() => dispatch(setDarkMode(true))}>
-            <i className="fa-solid fa-moon"></i>
+            <ModeNightIcon />
           </button>
         )}
       </div>

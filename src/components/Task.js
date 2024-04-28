@@ -2,6 +2,8 @@ import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { setDetailModal, setFormModal } from "../stores/modal";
 import { setSelectedTask } from "../stores/task";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function Task({ task, index }) {
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ function Task({ task, index }) {
                   );
                 }}
               >
-                <i className="fa-solid fa-pencil" />
+                <EditIcon />
               </button>
             </div>
           </div>

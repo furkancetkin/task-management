@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetailModal } from "../../stores/modal";
 import { deleteTask } from "../../stores/task";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function DetailModal() {
   const { detailModal } = useSelector((state) => state.modal );
@@ -39,7 +40,7 @@ function DetailModal() {
                   </span>
                 </div>
                 <button className="deleteButton" onClick={(e) => deleteTaskF(e)}>
-                  <i className="fa-solid fa-trash-can" />
+                  <DeleteIcon />
                 </button>
               </div>
             </div>
